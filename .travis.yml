@@ -1,0 +1,35 @@
+sudo: false
+
+language: php
+
+os:
+  - linux
+
+cache:
+  directories:
+    - $HOME/.composer/cache
+    - vendor
+
+env:
+  matrix:
+    - DRIVER="phpdbg" DEPENDENCIES="high"
+
+  global:
+    - DEFAULT_COMPOSER_FLAGS="--no-interaction --no-ansi --no-progress --no-suggest"
+
+matrix:
+  include:
+    - php: 7.2
+
+before_install:
+  - phpenv config-rm xdebug.ini
+
+install:
+  - travis_retry composer install --no-interaction
+
+script:
+  - phpdbg -qrr vendor/bin/phpunit --coverage-clover=coverage.clover
+
+after_success:
+  - wget https://scrutinizer-ci.com/ocular.phar
+  - php ocular.phar code-coverage:upload --format=php-clover coverage.clover

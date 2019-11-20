@@ -2,10 +2,10 @@
 
 namespace Tests;
 
-class Request{
+class Request
+{
 
     public function __construct()
     {
-        
     }
 }
