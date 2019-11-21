@@ -2,10 +2,10 @@
 
 namespace Nymfonya\Component\Container\Tests;
 
-use Nymfonya\Component\Container\Tests\Request;
 use PHPUnit\Framework\TestCase as PFT;
 use Nymfonya\Component\Config;
 use Nymfonya\Component\Container;
+use stdClass;
 
 /**
  * @covers Nymfonya\Component\Container::<public>
@@ -113,8 +113,8 @@ class ContainerTest extends PFT
      */
     public function testGetService()
     {
-        $service = $this->instance->getService(Request::class);
-        $this->assertTrue($service instanceof Request);
+        $service = $this->instance->getService(Config::class);
+        $this->assertTrue($service instanceof Config);
     }
 
     /**
@@ -159,7 +159,7 @@ class ContainerTest extends PFT
     public function testSetServiceNotObjectException()
     {
         $this->expectException(\Exception::class);
-        $this->instance->setService(Request::class, null);
+        $this->instance->setService('1', null);
     }
 
     /**
@@ -168,13 +168,12 @@ class ContainerTest extends PFT
      */
     public function testConstructable()
     {
-        $checkedMethod = 'constructable';
-        $cInt = self::getMethod($checkedMethod)->invokeArgs(
+        $cInt = self::getMethod('constructable')->invokeArgs(
             $this->instance,
             [1]
         );
         $this->assertFalse($cInt);
-        $cBool = self::getMethod($checkedMethod)->invokeArgs(
+        $cBool = self::getMethod('constructable')->invokeArgs(
             $this->instance,
             [true]
         );
@@ -187,17 +186,11 @@ class ContainerTest extends PFT
      */
     public function testHasService()
     {
-        $checkedMethod = 'hasService';
-        $hsReq = self::getMethod($checkedMethod)->invokeArgs(
+        $hass = self::getMethod('hasService')->invokeArgs(
             $this->instance,
-            [Request::class]
+            [Config::class]
         );
-        $this->assertTrue($hsReq);
-        $hsMdl = self::getMethod($checkedMethod)->invokeArgs(
-            $this->instance,
-            [\App\Model\Search::class]
-        );
-        $this->assertFalse($hsMdl);
+        $this->assertTrue($hass);
     }
 
     /**
@@ -253,13 +246,15 @@ class ContainerTest extends PFT
     {
         $createArgs = [
             self::CONFIG_PATH . Config::ENV_CLI,
-            Request::class
+            stdClass::class
         ];
         $cr = self::getMethod('create')->invokeArgs(
             $this->instance,
             [Config::class, $createArgs]
         );
         $this->assertTrue($cr instanceof Container);
+        $servicesNames = array_keys($cr->getServices());
+        $this->assertTrue(in_array(stdClass::class, $servicesNames));
     }
 
     /**
@@ -297,14 +292,22 @@ class ContainerTest extends PFT
      */
     public function testCreateCoreService()
     {
+        $basdServiceClassname = 'ImTheCoreServiceFromSpace';
         $ccs = self::getMethod('createCoreService')->invokeArgs(
             $this->instance,
             [
-                \App\Controllers\Config::class,
+                $basdServiceClassname,
                 [$this->instance]
             ]
         );
         $this->assertTrue($ccs instanceof Container);
+        $serviceList =  array_keys($ccs->getServices());
+        $this->assertFalse(
+            in_array($basdServiceClassname, $serviceList)
+        );
+        $this->assertTrue(
+            in_array('Nymfonya\Component\Config', $serviceList)
+        );
     }
 
     /**

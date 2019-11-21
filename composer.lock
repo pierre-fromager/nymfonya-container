@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/pierre-fromager/nymfonya-config.git",
-                "reference": "fbc2c6d18feb66500c20a689a27bb69401111da5"
+                "reference": "aad0b40337da20c8a64e67fe6cccf499d39676a2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pierre-fromager/nymfonya-config/zipball/fbc2c6d18feb66500c20a689a27bb69401111da5",
-                "reference": "fbc2c6d18feb66500c20a689a27bb69401111da5",
+                "url": "https://api.github.com/repos/pierre-fromager/nymfonya-config/zipball/aad0b40337da20c8a64e67fe6cccf499d39676a2",
+                "reference": "aad0b40337da20c8a64e67fe6cccf499d39676a2",
                 "shasum": ""
             },
             "require": {
@@ -57,7 +57,7 @@
                 "components",
                 "config"
             ],
-            "time": "2019-11-20T14:54:48+00:00"
+            "time": "2019-11-21T12:38:13+00:00"
         }
     ],
     "packages-dev": [
