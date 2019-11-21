@@ -1,8 +1,8 @@
 <?php
 
-namespace Tests\Component;
+namespace Nymfonya\Component\Container\Tests;
 
-use Tests\Request;
+use Nymfonya\Component\Container\Tests\Request;
 use PHPUnit\Framework\TestCase as PFT;
 use Nymfonya\Component\Config;
 use Nymfonya\Component\Container;
@@ -17,7 +17,7 @@ class ContainerTest extends PFT
     const CONFIG_PATH = '/config/';
 
     /**
-     * instance
+     * container instance
      *
      * @var Container
      */

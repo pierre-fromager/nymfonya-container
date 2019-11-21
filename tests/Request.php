@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests;
+namespace Nymfonya\Component\Container\Tests;
 
 class Request
 {
