@@ -18,10 +18,9 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "type": "library",
-    "version": "1.0.3",
     "require": {
         "php": ">=7.0.0",
-        "pier-infor/nymfonya-config": "dev-master"
+        "pier-infor/nymfonya-config": "~1.0.2"
     },
     "require-dev": {
         "phpunit/phpunit": "^6.5",
