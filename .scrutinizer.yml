@@ -135,9 +135,25 @@ checks:
 
 build:
     environment:
-        php: "7.2"
+        php: "7.3"
+    nodes:
+        analysis:
+            tests:
+                override:
+                    - php-scrutinizer-run
 
 tools:
     php_cs_fixer: false
     external_code_coverage:
         timeout: 1800
+        runs: 1
+    php_analyzer: true
+    php_code_coverage: false
+    php_code_sniffer:
+        config:
+            standard: PSR12
+        filter:
+            paths: ["src"]
+    php_loc:
+        enabled: true
+        excluded_dirs: [vendor, tests]
