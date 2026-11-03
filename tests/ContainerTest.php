@@ -4,11 +4,11 @@ namespace Nymfonya\Component\Container\Tests;
 
 use PHPUnit\Framework\TestCase as PFT;
 use Nymfonya\Component\Config;
-use Nymfonya\Component\Container;
+use Nymfonya\Component\Container\Container;
 use stdClass;
 
 /**
- * @covers Nymfonya\Component\Container::<public>
+ * @covers Nymfonya\Component\Container\Container::<public>
  */
 class ContainerTest extends PFT
 {
@@ -61,20 +61,16 @@ class ContainerTest extends PFT
      * get any method from a class to be invoked whatever the scope
      *
      * @param String $name
-     * @return void
+     * @return \ReflectionMethod
      */
     protected static function getMethod(string $name)
     {
-        $class = new \ReflectionClass(Container::class);
-        $method = $class->getMethod($name);
-        $method->setAccessible(true);
-        unset($class);
-        return $method;
+        return new \ReflectionClass(Container::class)->getMethod($name);
     }
 
     /**
      * testInstance
-     * @covers Nymfonya\Component\Container::__construct
+     * @covers Nymfonya\Component\Container\Container::__construct
      */
     public function testInstance()
     {
@@ -83,8 +79,8 @@ class ContainerTest extends PFT
 
     /**
      * testInitReporter
-     * @covers Nymfonya\Component\Container::initReporter
-     * @covers Nymfonya\Component\Container::getReporter
+     * @covers Nymfonya\Component\Container\Container::initReporter
+     * @covers Nymfonya\Component\Container\Container::getReporter
      */
     public function testInitReporter()
     {
@@ -100,7 +96,7 @@ class ContainerTest extends PFT
 
     /**
      * testGetServices
-     * @covers Nymfonya\Component\Container::getServices
+     * @covers Nymfonya\Component\Container\Container::getServices
      */
     public function testGetServices()
     {
@@ -109,7 +105,7 @@ class ContainerTest extends PFT
 
     /**
      * testGetService
-     * @covers Nymfonya\Component\Container::getService
+     * @covers Nymfonya\Component\Container\Container::getService
      */
     public function testGetService()
     {
@@ -119,7 +115,7 @@ class ContainerTest extends PFT
 
     /**
      * testGetServiceException
-     * @covers Nymfonya\Component\Container::getService
+     * @covers Nymfonya\Component\Container\Container::getService
      */
     public function testGetServiceException()
     {
@@ -129,8 +125,8 @@ class ContainerTest extends PFT
 
     /**
      * testSetService
-     * @covers Nymfonya\Component\Container::setService
-     * @covers Nymfonya\Component\Container::getService
+     * @covers Nymfonya\Component\Container\Container::setService
+     * @covers Nymfonya\Component\Container\Container::getService
      */
     public function testSetService()
     {
@@ -144,7 +140,7 @@ class ContainerTest extends PFT
 
     /**
      * testSetServiceNoClassException
-     * @covers Nymfonya\Component\Container::setService
+     * @covers Nymfonya\Component\Container\Container::setService
      */
     public function testSetServiceNoClassException()
     {
@@ -154,7 +150,7 @@ class ContainerTest extends PFT
 
     /**
      * testSetServiceNotObjectException
-     * @covers Nymfonya\Component\Container::setService
+     * @covers Nymfonya\Component\Container\Container::setService
      */
     public function testSetServiceNotObjectException()
     {
@@ -164,7 +160,7 @@ class ContainerTest extends PFT
 
     /**
      * testConstructable
-     * @covers Nymfonya\Component\Container::constructable
+     * @covers Nymfonya\Component\Container\Container::constructable
      */
     public function testConstructable()
     {
@@ -182,7 +178,7 @@ class ContainerTest extends PFT
 
     /**
      * testHasService
-     * @covers Nymfonya\Component\Container::hasService
+     * @covers Nymfonya\Component\Container\Container::hasService
      */
     public function testHasService()
     {
@@ -195,7 +191,7 @@ class ContainerTest extends PFT
 
     /**
      * testLoad
-     * @covers Nymfonya\Component\Container::load
+     * @covers Nymfonya\Component\Container\Container::load
      */
     public function testLoad()
     {
@@ -209,7 +205,7 @@ class ContainerTest extends PFT
 
     /**
      * testSetServiceConfig
-     * @covers Nymfonya\Component\Container::setServiceConfig
+     * @covers Nymfonya\Component\Container\Container::setServiceConfig
      */
     public function testSetServiceConfig()
     {
@@ -223,7 +219,7 @@ class ContainerTest extends PFT
 
     /**
      * testLoadException
-     * @covers Nymfonya\Component\Container::load
+     * @covers Nymfonya\Component\Container\Container::load
      */
     public function testLoadException()
     {
@@ -240,7 +236,7 @@ class ContainerTest extends PFT
 
     /**
      * testCreate
-     * @covers Nymfonya\Component\Container::create
+     * @covers Nymfonya\Component\Container\Container::create
      */
     public function testCreate()
     {
@@ -259,7 +255,7 @@ class ContainerTest extends PFT
 
     /**
      * testIsBasicType
-     * @covers Nymfonya\Component\Container::isBasicType
+     * @covers Nymfonya\Component\Container\Container::isBasicType
      */
     public function testIsBasicType()
     {
@@ -288,7 +284,7 @@ class ContainerTest extends PFT
 
     /**
      * testCreateCoreService
-     * @covers Nymfonya\Component\Container::createCoreService
+     * @covers Nymfonya\Component\Container\Container::createCoreService
      */
     public function testCreateCoreService()
     {
@@ -306,13 +302,13 @@ class ContainerTest extends PFT
             in_array($basdServiceClassname, $serviceList)
         );
         $this->assertTrue(
-            in_array('Nymfonya\Component\Config', $serviceList)
+            in_array(\Nymfonya\Component\Config::class, $serviceList)
         );
     }
 
     /**
      * testCreateDependencies
-     * @covers Nymfonya\Component\Container::createDependencies
+     * @covers Nymfonya\Component\Container\Container::createDependencies
      */
     public function testCreateDependencies()
     {
@@ -335,7 +331,7 @@ class ContainerTest extends PFT
 
     /**
      * testInjectService
-     * @covers Nymfonya\Component\Container::injectService
+     * @covers Nymfonya\Component\Container\Container::injectService
      */
     public function testInjectService()
     {

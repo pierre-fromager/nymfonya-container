@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Nymfonya\Component;
+namespace Nymfonya\Component\Container;
 
 use stdClass;
 
